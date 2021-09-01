@@ -1,5 +1,7 @@
 const express = require('express');
+const fs = require('fs');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
@@ -22,11 +24,16 @@ app.post('/upload_json', (req, res) => {
 
   var uploadObj = JSON.parse(upload);
 
+  fs.readFile(path.join(__dirname, '/client/index.html'), 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(data);
+      res.write(data);
+      res.end(upload);
+    }
+  });
 
-
-
-
-  res.end('posted');
 
 });
 
